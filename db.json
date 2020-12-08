@@ -1,16 +1,16 @@
 {
   "harga": {
     "tanggal": "Selasa, 8 Desember 2020",
-    "beli": "899.000",
-    "jual": "858.920",
-    "tanggalScrape": "2020-12-08 11:38:44"
+    "beli": "902.000",
+    "jual": "860.890",
+    "tanggalScrape": "2020-12-08 03:04:10"
   },
   "history": [
     {
       "tanggal": "Selasa, 8 Desember 2020",
-      "beli": "899.000",
-      "jual": "858.920",
-      "tanggalScrape": "2020-12-08 11:38:44"
+      "beli": "902.000",
+      "jual": "860.890",
+      "tanggalScrape": "2020-12-08 03:04:10"
     }
   ]
 }

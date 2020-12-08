@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const hostname = process.env.MY_HOST || "127.0.0.1";
+const port = process.env.MY_PORT || 4444;
 
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
