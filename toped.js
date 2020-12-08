@@ -1,4 +1,7 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra");
+// add stealth plugin and use defaults (all evasion techniques)
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+
 const BASE_URL = "https://www.tokopedia.com/emas/harga-hari-ini/";
 const moment = require("moment");
 const low = require("lowdb");
@@ -15,13 +18,18 @@ const toped = {
   init: async () => {
     try {
       toped.browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         defaultViewport: null,
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
+
       toped.page = await toped.browser.newPage();
+      toped.page.setUserAgent(
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36"
+      );
 
       await toped.page.goto(BASE_URL, { waitUntil: "networkidle2" });
+      await toped.page.screenshot({ path: "screenshot.png" });
     } catch (error) {
       console.log(error.stack);
       await toped.browser.close();
@@ -33,10 +41,14 @@ const toped = {
     );
   },
   ambilTanggal: async () => {
-    toped.tanggal = await toped.page.$eval(
-      "time",
-      (element) => element.textContent
-    );
+    try {
+      toped.tanggal = await toped.page.$eval(
+        "time",
+        (element) => element.textContent
+      );
+    } catch (error) {
+      await toped.page.screenshot({ path: "screenshot.png" });
+    }
   },
   simpanData: async () => {
     let dataHarga = {
